@@ -94,6 +94,15 @@ class ToolControllerTest extends BaseIntegrationTest {
         }
 
         @Test
+        @DisplayName("should return 400 when daily rate is negative")
+        void shouldReturn400WhenDailyRateIsNegative() {
+            givenAuth()
+                    .body("{\"name\":\"Hammer\",\"dailyRate\":-10.0,\"weeklyDailyRate\":8.0,\"monthlyDailyRate\":6.0}")
+                    .when().post("/api/v1/tools")
+                    .then().statusCode(400);
+        }
+
+        @Test
         @DisplayName("should return 401 without token")
         void shouldReturn401WithoutToken() {
             givenNoAuth()
